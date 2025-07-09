@@ -1,0 +1,519 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+}
+
+/* App Container */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 60px;
+  width: 100%;
+}
+
+.app-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.app-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Main Content */
+.app-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Scan Section */
+.scan-section {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scan-button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 20px 40px;
+  font-size: 1.3rem;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+  transition: all 0.3s ease;
+  font-weight: 600;
+  min-width: 200px;
+}
+
+.scan-button:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.5);
+}
+
+.scan-button:active {
+  transform: translateY(0);
+}
+
+/* Scanner Section */
+.scanner-section {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scanner-section h2 {
+  color: white;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.cancel-button {
+  margin-top: 20px;
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.cancel-button:hover {
+  background: #da190b;
+  transform: translateY(-1px);
+}
+
+/* QR Scanner Styles */
+.qr-scanner-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.qr-video {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  background: #000;
+  display: block;
+}
+
+.qr-video.loading {
+  opacity: 0.5;
+}
+
+.scanner-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  z-index: 10;
+  width: 80%;
+}
+
+.debug-info {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.scanner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.scanner-frame {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+}
+
+.corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #4CAF50;
+}
+
+.corner.top-left {
+  top: -3px;
+  left: -3px;
+  border-right: none;
+  border-bottom: none;
+  border-top-left-radius: 20px;
+}
+
+.corner.top-right {
+  top: -3px;
+  right: -3px;
+  border-left: none;
+  border-bottom: none;
+  border-top-right-radius: 20px;
+}
+
+.corner.bottom-left {
+  bottom: -3px;
+  left: -3px;
+  border-right: none;
+  border-top: none;
+  border-bottom-left-radius: 20px;
+}
+
+.corner.bottom-right {
+  bottom: -3px;
+  right: -3px;
+  border-left: none;
+  border-top: none;
+  border-bottom-right-radius: 20px;
+}
+
+.scanner-instruction {
+  color: white;
+  margin-top: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Error Styles */
+.qr-scanner-error {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: white;
+  backdrop-filter: blur(10px);
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.error-tips {
+  margin: 20px 0;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.error-tips h4 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.error-tips ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.error-tips li {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+.error-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.retry-button, .close-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.retry-button {
+  background: #4CAF50;
+  color: white;
+}
+
+.close-button {
+  background: #f44336;
+  color: white;
+}
+
+.retry-button:hover {
+  background: #45a049;
+}
+
+.close-button:hover {
+  background: #da190b;
+}
+
+/* Results Section */
+.results-section {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.results-section h2 {
+  color: white;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.result-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.result-card h3 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.result-content {
+  background: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.result-content pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: #333;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.result-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.scan-again-button, .copy-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  min-width: 140px;
+}
+
+.scan-again-button {
+  background: #4CAF50;
+  color: white;
+}
+
+.copy-button {
+  background: #2196F3;
+  color: white;
+}
+
+.scan-again-button:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.copy-button:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app {
+    padding: 20px;
+    min-height: 100vh;
+    justify-content: center;
+  }
+  
+  .app-header {
+    margin-bottom: 40px;
+  }
+  
+  .app-header h1 {
+    font-size: 2rem;
+  }
+  
+  .app-header p {
+    font-size: 1rem;
+  }
+  
+  .scan-button {
+    padding: 18px 35px;
+    font-size: 1.2rem;
+    min-width: 180px;
+  }
+  
+  .qr-video {
+    height: 250px;
+  }
+  
+  .scanner-frame {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .result-card {
+    padding: 20px;
+    margin: 0 10px;
+  }
+  
+  .result-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .scan-again-button, .copy-button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .error-tips {
+    text-align: center;
+  }
+
+  .error-tips ul {
+    text-align: left;
+    display: inline-block;
+  }
+
+  .error-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .retry-button, .close-button {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 15px;
+    justify-content: center;
+  }
+  
+  .app-header {
+    margin-bottom: 30px;
+  }
+  
+  .app-header h1 {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .result-card {
+    margin: 0 5px;
+    padding: 15px;
+  }
+}
